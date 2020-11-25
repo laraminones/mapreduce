@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 actual_city = None
 actual_max_tmp = "-9999.0"
