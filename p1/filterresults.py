@@ -24,5 +24,9 @@ for file in args.input_files:
                 min_tmp = min_tmp_acu
                 min_city = row[0]
 
+max_city = max_city.split('/')[-1]
+max_city = max_city.split('.')[0]
+min_city = min_city.split('/')[-1]
+min_city = min_city.split('.')[0]
 print('El lugar en el que hizo más calor fue %s con %s grados.' % (max_city,max_tmp))
 print('El lugar en el que hizo más frío fue %s con %s grados.' % (min_city,min_tmp))
