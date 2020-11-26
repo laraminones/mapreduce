@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+import os
+import sys
+
 actual_city = None
 actual_max_tmp = "-9999.0"
 actual_min_tmp = "9999.0"
@@ -8,7 +11,7 @@ city = ""
 for line in sys.stdin:
 	line = line.strip()
 
-	city,max_tmp,min_tmp = line.split("\t",2)
+	city,max_tmp,min_tmp = line.split('\t',2)
 
 	if actual_city == None:
 		actual_max_tmp = max_tmp
@@ -20,10 +23,10 @@ for line in sys.stdin:
 			if float(min_tmp) < float(actual_min_tmp):
 				actual_min_tmp = min_tmp
 		else:
-			print("%s\t%s\t%s" % (actual_city, actual_max_tmp, actual_min_tmp))
+			print('%s\t%s\t%s' % (actual_city, actual_max_tmp, actual_min_tmp))
 			actual_max_tmp = max_tmp
 			actual_min_tmp = min_tmp
 	actual_city = city
 
 if actual_city == city:
-	print("%s\t%s\t%s" % (actual_city, actual_max_tmp, actual_min_tmp))
+	print('%s\t%s\t%s' % (actual_city, actual_max_tmp, actual_min_tmp))
