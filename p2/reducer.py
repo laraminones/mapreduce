@@ -18,13 +18,13 @@ for line in sys.stdin:
     except ValueError:
         continue
 
-	if user == None:
-        if actual_user:
+    if actual_user != user:
+        if actual_user != None:
             print('%s\t%d' % (actual_user, actual_files))
         actual_user = user
         actual_files = files
     else:
-        actual_files = files+1
+        actual_files += files
 
 if actual_user == user:
     print('%s\t%d' % (actual_user, actual_files))
