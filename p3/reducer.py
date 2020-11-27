@@ -13,7 +13,7 @@ for line in sys.stdin:
     mapperinfo = line.split('\t')
     wine = mapperinfo[0]
     quality = mapperinfo[1:]
-    acu += 1
+    acu += 1.0
 
     try:
         quality = [float(atr) for atr in quality]
@@ -27,6 +27,7 @@ for line in sys.stdin:
             str_actual_quality = ('\t').join(str_actual_quality)
             data = str_actual_quality+'\t'+str_acu
             print('%s\t%s' % (actual_wine,data))
+            acu = 1.0
         actual_wine = wine
         actual_quality = quality
     else:
