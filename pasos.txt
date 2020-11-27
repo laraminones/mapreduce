@@ -5,6 +5,8 @@ sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i --cpus=4 
 P2:
 sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i --cpus=4 -v /home/lara/Escritorio/ICS/MapReduce/p2:/home/cloudera/practicas --publish-all=true -p 7180 cloudera/quickstart /usr/bin/docker-quickstart
 
+P3:
+sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i --cpus=4 -v /home/lara/Escritorio/ICS/MapReduce/p3:/home/cloudera/practicas --publish-all=true -p 7180 cloudera/quickstart /usr/bin/docker-quickstart
 
 2) Pasar una carpeta/fichero a formato hdfs
 
@@ -20,7 +22,7 @@ cd /home/cloudera/practicas
 P1:
 /usr/bin/hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-cdh5.7.0.jar -D mapreduce.job.reduces=2 -input files -output salida -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py
 
-P2:
+P2-P3:
 /usr/bin/hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-cdh5.7.0.jar -input files -output salida -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py
 
 5) Comprobar la salida:
