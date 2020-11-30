@@ -23,7 +23,7 @@ for line in sys.stdin:
     if actual_wine != wine:
         if actual_wine != None:
             str_acu = str(acu)
-            str_actual_quality = [str(atr) for atr in actual_quality]
+            str_actual_quality = [str(atr/acu) for atr in actual_quality]
             str_actual_quality = ('\t').join(str_actual_quality)
             data = str_actual_quality+'\t'+str_acu
             print('%s\t%s' % (actual_wine,data))
@@ -34,7 +34,7 @@ for line in sys.stdin:
         actual_quality = [x + y for x, y in zip(actual_quality, quality)]
 
 if actual_wine == wine:
-    str_actual_quality = [str(atr) for atr in actual_quality]
+    str_actual_quality = [str(atr/acu) for atr in actual_quality]
     str_actual_quality = ('\t').join(str_actual_quality)
     str_acu = str(acu)
     data = str_actual_quality+'\t'+str_acu
