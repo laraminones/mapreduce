@@ -1,0 +1,150 @@
+En este documento se explica el código implementado
+por Lara Miñones Rodríguez y Lois Soto López para
+la realización de la práctica de Map Reduce en el
+contexto de la asignatura de ICS del MUEI.
+
+Curso 2020/2021
+
+
+En el caso del PRIMER EJERCICIO:
+
+> El mapper.py
+	Toma cada una de las líneas de entrada
+	correspondientes a mediciones de información
+	tomadas para cada una de las ciudades, y para
+	cada una de ellas:
+	1. Obtiene el nombre de la ciudad.
+	2. Obtiene el valor de temperatura mínima y
+	máxima para esa medición.
+	3. Emite (haciendo print) la información de la
+	medición en formato 
+
+	nombre[tabulado]temperatura_maxima[tabulado]temperatura_minima
+
+	solo en el caso de que los valores de temperatura
+	sean válidos (las mediciones de entrada asignan 
+	valores exagerados y sin sentido a las mediciones
+	que deban ser ignoradas)
+
+> El reducer.py
+	Asigna unos valores por defecto a las variables 
+	utilizadas para almacenar la información de la
+	anterior medición procesada en el bucle principal.
+
+	En este bucle lee cada una de las tuplas emitidas
+	por el mapper y realiza la siguiente serie de
+	acciones:
+
+	-Si la ciudad procesada en la iteración actual del
+	bucle es nula (primera iteración) o es distinta de
+	la procesada en la iteración anterior, la información
+	referente a la ciudad procesada en la iteración
+	anterior estará calculada y lista para ser emitida, por
+	lo que se emite mediante el comando print en formato
+
+	ciudad[tabulado]temperatura_máxima[tabulado]temperatura_minima
+
+	-Si la ciudad procesada en la iteración actual del
+	bucle es la misma que en la iteración anterior, se
+	comprueba si los valores mínimos y máximos de la medición
+	actual son menores o mayores respectivamente que los de
+	la medición anterior. En dichos casos se actualizan los
+	valores de temperatura mínima y máxima.
+
+	Por la forma en que el bucle anterior procesa la información
+	de las mediciones, es necesario emitir con un print con
+	el formato anteriormente indicado la información referente
+	a la última ciudad procesada.
+
+
+En el caso del SEGUNDO EJERCICIO:
+
+> El mapper.py
+	De forma similar a como funcionaba el mapper.py del
+	ejercicio anterior en este caso obtendremos el nombre
+	del fichero y la url visitada.
+
+	En este caso el mapper emitirá la información referente
+	al número de páginas visitadas por el usuario para cada
+	una de las líneas del fichero de entrada, por lo tanto
+
+	identificador_de_usuario[tabulado]1
+
+	pero solo para las entradas donde la url termine en .ps.
+	Además el mapper.py también emitirá la cantidad de veces
+	que se ha visitado una url para esa entrada, por lo tanto
+
+	url[tabulado]1
+
+> El reducer.py
+	En este caso cada iteración del bucle convierte la entrada
+	a una tupla user,files que en realidad puede representar 
+
+	identificador_usuario,1
+
+	o
+
+	url,1
+
+	y comprobará si la url o usuario es el mismo que el
+	procesado en la iteración anterior. En ese caso le sumará
+	el segundo valor de la tupla (1) al acumulador. Una vez
+	el url o usuario no sea el mismo que el de la iteración
+	anterior (se ha acabado de calcular en número de páginas
+	visitadas para un usuario, o el número de visitas a una
+	página) se emite una tupla tipo
+
+	identificador_usuario/url[tabulado]acumulador
+
+	y se resetea el valor del acumulador al valor de la
+	tupla de entrada actual en la segunda posición.
+
+	Del mismo modo que en el ejercicio anterior debemos recordar
+	emitir los datos de la última url/usuario procesados.
+
+> El filterresults.py
+	Se utiliza este script python para, a partir de los datos
+	de numero de veces que se ha visitado cada página y
+	número de veces que un usuario ha visitado un fichero
+	(de tipo .ps), obtener la url y el usuario con mayor valor
+	para cada uno de estas métricas.
+
+	Se utilizan unas variables temporales para almacenar
+	los valores máximos de visita y ficheros .ps en cada
+	iteración, así como la url y usuario asociados a cada
+	máximo.
+
+	Una vez terminado el proceso se imprimen los resultados.
+
+
+En el caso del ejercicio 3:
+
+> El mapper.py
+	De forma similar a lo visto en los dos ejercicios
+	anteriores se leen los ficheros de entrada y de cada
+	línea se obtienen calificaciones para cada tipo de vino,
+	asociado a cada uno de los ficheros de entrada.
+
+	Se emite mediante un print el tipo de vino y sus 
+	calificaciones en formato
+
+	tipo_vino[tabulado]calif.1[tabulado]calif.2[tabulado]...[tabulado] califn
+
+> El reducer
+	En este caso en cada iteración del bucle en la que
+	se procese una serie de calidades para el mismo tipo
+	de vino que en la iteración anterior, se sumarán
+	a una lista de acumuladores los valores de calidad leídos
+	en la iteración actual. Además, con cada iteración en
+	la que se procese una entrada de calidad para el mismo
+	tipo de vino irá aumentando en 1 un acumulador. Este
+	acumulador será luego utilizado para el cálculo de la
+	media de calidades para cada tipo de vino.
+
+	Una vez la iteración actual sea para un tipo de vino
+	distinto al de la iteración anterior (o hayamos salido
+	del bucle y tengamos que procesar el último tipo de vino),
+	se tomarán los valores de esa lista de calidades 
+	acumuladas y se dividirán por el acumulador mencionado
+	en el párrafo anterior, obteniéndose así la media deseada.
+
